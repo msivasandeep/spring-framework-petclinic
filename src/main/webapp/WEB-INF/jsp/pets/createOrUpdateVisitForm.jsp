@@ -14,9 +14,26 @@
         </script>
     </jsp:attribute>
     <jsp:body>
-        <h2><c:if test="${visit['new']}">New </c:if>Visit</h2>
+        <h1><c:if test="${visit['new']}">New </c:if>Visit</h1>
+        <h2>Vets</h2>
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>Vet</th>
+                <th>Speciality</th>
+                <th>Latest Available Date</th>
+            </tr>
+            </thead>
+            <c:forEach var="vet" items="${vets}">
+                    <tr>
+                        <td><c:out value="${vet.firstName}"/></td>
+                        <td><c:out value="${vet.specialties[0]}"/></td>
+                        <td><c:out value="${vet.date}"/></td>
+                    </tr>
+            </c:forEach>
+        </table>
 
-        <b>Pet</b>
+        <h2>Pet</h2>
         <table class="table table-striped">
             <thead>
             <tr>
@@ -36,6 +53,7 @@
 
         <form:form modelAttribute="visit" class="form-horizontal">
             <div class="form-group has-feedback">
+                <petclinic:selectField name="vet" label="Vet Names " names="${vets}" size="6"/>
                 <petclinic:inputField label="Date" name="date"/>
                 <petclinic:inputField label="Description" name="description"/>
             </div>
@@ -53,12 +71,14 @@
         <table class="table table-striped">
             <tr>
                 <th>Date</th>
+                <th>Vet</th>
                 <th>Description</th>
             </tr>
             <c:forEach var="visit" items="${visit.pet.visits}">
                 <c:if test="${!visit['new']}">
                     <tr>
                         <td><petclinic:localDate date="${visit.date}" pattern="yyyy/MM/dd"/></td>
+                        <td><c:out value="${visit.vet.firstName}"/></td>
                         <td><c:out value="${visit.description}"/></td>
                     </tr>
                 </c:if>

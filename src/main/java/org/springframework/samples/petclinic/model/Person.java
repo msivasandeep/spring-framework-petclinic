@@ -20,6 +20,8 @@ import javax.persistence.MappedSuperclass;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
+import java.util.Date;
+
 /**
  * Simple JavaBean domain object representing an person.
  *

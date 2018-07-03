@@ -1,19 +1,21 @@
-INSERT INTO vets VALUES (1, 'James', 'Carter');
-INSERT INTO vets VALUES (2, 'Helen', 'Leary');
-INSERT INTO vets VALUES (3, 'Linda', 'Douglas');
-INSERT INTO vets VALUES (4, 'Rafael', 'Ortega');
-INSERT INTO vets VALUES (5, 'Henry', 'Stevens');
-INSERT INTO vets VALUES (6, 'Sharon', 'Jenkins');
+INSERT INTO vets VALUES (1, 'James', 'Carter',1,'2018-07-06  :  10AM' );
+INSERT INTO vets VALUES (2, 'Helen', 'Leary',1,'2018-07-03  :  10AM' );
+INSERT INTO vets VALUES (3, 'Linda', 'Douglas',1,'2018-07-03  :  10AM' );
+INSERT INTO vets VALUES (4, 'Rafael', 'Ortega',1,'2018-07-03  :  10AM' );
+INSERT INTO vets VALUES (5, 'Henry', 'Stevens',1,'2018-07-06  :  10AM' );
+INSERT INTO vets VALUES (6, 'Sharon', 'Jenkins',1,'2018-07-03  :  10AM' );
 
 INSERT INTO specialties VALUES (1, 'radiology');
 INSERT INTO specialties VALUES (2, 'surgery');
 INSERT INTO specialties VALUES (3, 'dentistry');
+INSERT INTO specialties VALUES (4, 'general');
 
-INSERT INTO vet_specialties VALUES (2, 1);
-INSERT INTO vet_specialties VALUES (3, 2);
+INSERT INTO vet_specialties VALUES (1, 1);
+INSERT INTO vet_specialties VALUES (2, 2);
 INSERT INTO vet_specialties VALUES (3, 3);
 INSERT INTO vet_specialties VALUES (4, 2);
 INSERT INTO vet_specialties VALUES (5, 1);
+INSERT INTO vet_specialties VALUES (6, 4);
 
 INSERT INTO types VALUES (1, 'cat');
 INSERT INTO types VALUES (2, 'dog');
@@ -47,7 +49,7 @@ INSERT INTO pets VALUES (11, 'Freddy', '2010-03-09', 5, 9);
 INSERT INTO pets VALUES (12, 'Lucky', '2010-06-24', 2, 10);
 INSERT INTO pets VALUES (13, 'Sly', '2012-06-08', 1, 10);
 
-INSERT INTO visits VALUES (1, 7, '2013-01-01', 'rabies shot');
-INSERT INTO visits VALUES (2, 8, '2013-01-02', 'rabies shot');
-INSERT INTO visits VALUES (3, 8, '2013-01-03', 'neutered');
-INSERT INTO visits VALUES (4, 7, '2013-01-04', 'spayed');
+INSERT INTO visits VALUES (1, 7, '2013-01-01', 'rabies shot',1);
+INSERT INTO visits VALUES (2, 8, '2013-01-02', 'rabies shot',1);
+INSERT INTO visits VALUES (3, 8, '2013-01-03', 'neutered',1);
+INSERT INTO visits VALUES (4, 7, '2013-01-04', 'spayed',1);

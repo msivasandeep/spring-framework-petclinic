@@ -40,6 +40,8 @@ public interface ClinicService {
 
     void savePet(Pet pet) throws DataAccessException;
 
+    void saveVet(Vet vet) throws DataAccessException;
+
     void saveVisit(Visit visit) throws DataAccessException;
 
     Collection<Vet> findVets() throws DataAccessException;

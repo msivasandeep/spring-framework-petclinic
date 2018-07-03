@@ -105,6 +105,12 @@ public class ClinicServiceImpl implements ClinicService {
         return vetRepository.findAll();
     }
 
+    @Override
+    @Transactional
+    public void saveVet(Vet vet) throws DataAccessException {
+        vetRepository.save(vet);
+    }
+
 	@Override
 	public Collection<Visit> findVisitsByPetId(int petId) {
 		return visitRepository.findByPetId(petId);

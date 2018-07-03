@@ -15,12 +15,16 @@
  */
 package org.springframework.samples.petclinic.web;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.petclinic.model.Pet;
+import org.springframework.samples.petclinic.model.Vet;
 import org.springframework.samples.petclinic.model.Visit;
 import org.springframework.samples.petclinic.service.ClinicService;
 import org.springframework.stereotype.Controller;
@@ -47,6 +51,11 @@ public class VisitController {
     @Autowired
     public VisitController(ClinicService clinicService) {
         this.clinicService = clinicService;
+    }
+
+    @ModelAttribute("vets")
+    public Collection<Vet> populateVetNames() {
+        return this.clinicService.findVets();
     }
 
     @InitBinder
@@ -84,13 +93,40 @@ public class VisitController {
         if (result.hasErrors()) {
             return "pets/createOrUpdateVisitForm";
         } else {
-            this.clinicService.saveVisit(visit);
+            int vetId = visit.getVet().getId();
+            Collection<Vet> vets = this.clinicService.findVets();
+            for(Vet vet: vets){
+                if(vet.getId().equals(vetId)){
+                    if(vet.getSlotNumber() == 1){
+                        vet.setSlotNumber(vet.getSlotNumber()+1);
+                        vet.setDate(visit.getDate().toString() + "  :  2 PM");
+                    }
+                    else if(vet.getSlotNumber() == 2){
+                        vet.setSlotNumber(1);
+                        if(visit.getDate().plusDays(1).getDayOfWeek().toString().trim().equalsIgnoreCase("SATURDAY")){
+                            vet.setDate(visit.getDate().plusDays(3).toString() + "  :  10 AM");
+                        }
+                        else {
+                            vet.setDate(visit.getDate().plusDays(1).toString() + "  :  10 AM");
+                        }
+                    }
+                    this.clinicService.saveVet(vet);
+                    visit.setVet(vet);
+                    this.clinicService.saveVisit(visit);
+                    break;
+                }
+            }
             return "redirect:/owners/{ownerId}";
         }
     }
 
     @RequestMapping(value = "/owners/*/pets/{petId}/visits", method = RequestMethod.GET)
     public String showVisits(@PathVariable int petId, Map<String, Object> model) {
+        model.put("visits", this.clinicService.findPetById(petId).getVisits());
+        return "visitList";
+    }
+
+    public String getAvilableDates(@PathVariable int petId, Map<String, Object> model) {
         model.put("visits", this.clinicService.findPetById(petId).getVisits());
         return "visitList";
     }
